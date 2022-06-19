@@ -1,0 +1,38 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "My EC2 tryings",
+    "Resources":{
+        "MyInstance": {
+            "Type" : "AWS::EC2::Instance",
+            "Properties" : {
+                "Mytemplate":{
+                    "LaunchTemplateId": "lt-0315931742a1af8b2",
+                    "Version":"1"},
+                "InstanceType":"t2.micro",
+                "SecurityGroupIds" : ["sg-0c8db74ebd29361de"],
+                "Tags" : [{
+                    "Key" : "Name",
+                    "Value" : "MCANMCAN_KittenCarousel"
+                 }], 
+                 "KeyName": "Myfirstkey",
+                 "UserData": {
+                    "Fn::Base64": {
+                    "Fn::Join": ["", [
+                            "#!/bin/bash \n",
+                            "sudo git clone https://github.com/MCANMCAN/KittenCarousel-AWSCloudFormation.git \n",
+                            "sudo cd KittenCarousel-AWSCloudFormation \n",
+                            "sudo rm -rf /var/www/html/index.html \n",
+                            "sudo cp ./static-web/ /var/www/html/ \n",
+                            "sudo systemctl restart httpd \n"
+                            ]]
+                    }
+                }
+            }
+        }
+    }
+}
+
+                            
+            
+          
+               
